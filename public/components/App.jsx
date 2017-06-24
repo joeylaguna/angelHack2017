@@ -1,10 +1,16 @@
 import React from 'react';
-import Questions from './Questions.jsx';
+import AccountLink from './AccountLink.jsx';
+import AccountSummary from './AccountSummary.jsx';
+import Chat from './Chat.jsx';
 
 class App extends React.Component {
   render() {
     return (
-      <Questions />
+      <div>
+        <AccountLink />
+        <AccountSummary />
+        <Chat />
+      </div>
     )
   }
 }
