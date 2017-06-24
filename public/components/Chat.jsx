@@ -25,18 +25,12 @@ class Chat extends React.Component {
 
     var subscription = rtm.subscribe(channel, RTM.SubscriptionMode.SIMPLE);
 
-    /* publish a message after being subscribed to sync on subscription */
-    subscription.on('enter-subscribed', function () {
-      rtm.publish(channel, "Hello, World!", function (pdu) {
-        console.log("Publish ack:", pdu);
-      });
-    });
-
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
       pdu.body.messages.forEach(function (msg) {
         console.log('Got message:', msg);
-        self.setState({messages: self.state.messages.concat([msg])});
+        self.setState({
+          messages: self.state.messages.concat([msg.test])});
       });
       // close client after receving one message
     });
