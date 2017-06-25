@@ -17,7 +17,9 @@ class Chat extends React.Component {
       currentQuestion: EasyQuestion[Math.floor(Math.random() * EasyQuestion.length)],
       nextRound: false,
       ID: '',
-      test: 'joey'
+      test: 'Isaac'
+
+
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -35,6 +37,7 @@ class Chat extends React.Component {
   getID(context){
     return firebaseApp.database().ref('/users/' + this.props.userID).once('value').then(function(snapshot) {
       var userid = snapshot.val().username;
+      console.log('userId', userid)
       context.setState({
         ID: userid
       });
@@ -53,8 +56,9 @@ class Chat extends React.Component {
     var channel = "sacangelhack";
     var self = this;
     var userID;
+
     var context = this;
-    
+
 
     var rtm = new RTM(endpoint, appkey);
 
