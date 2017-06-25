@@ -7,31 +7,27 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      matched: false,
-      activeCount: 0
-
+      activeCount: 0,
+      userInfo: {},
+      isUserAuth: false,
+      isChatComplete: false,
+      isPostSurveyComplete: false
     }
-
-    this.setActiveCount = this.setActiveCount.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
-  setActiveCount() {
-    let currentCount = this.state.activeCount;
-    currentCount +=1;
+  updateUserInfo(info) {
     this.setState({
-      activeCount: currentCount
+      userInfo: info,
+      isUserAuth: true
     });
   }
-
-
 
   render() {
     return (
       <div>
-        <AccountLink />
-        {this.state.activeCount}
-        {this.state.matched ? <AccountSummary /> : ''}
-        {this.state.matched ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
+        <AccountLink updateUserInfo={this.updateUserInfo}/>
+        {this.state.isUserAuth ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
       </div>
     )
   }
