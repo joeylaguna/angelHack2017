@@ -7,7 +7,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      activeCount: 0,
       userInfo: {},
       isUserAuth: false,
       isChatComplete: false,
