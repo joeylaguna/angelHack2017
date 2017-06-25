@@ -48,6 +48,7 @@ class AccountLink extends React.Component {
         this.setState({
           politicalPreference: politcalStuff
         });
+        this.props.updatePolit(politcalStuff);
         console.log(politcalStuff);
   		})
   	}
@@ -71,7 +72,7 @@ class AccountLink extends React.Component {
         <h1>Inside accountLink</h1>
         <form onSubmit={this.handleSubmit}>
         <label>
-          Name:
+          <h1 className='heading-2'>Name:</h1>
           <input
             name="name"
             type="text"
@@ -80,7 +81,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-          Gender:
+          <h1 className='heading-2'>Gender:</h1>
           <input
             name="gender"
             type="text"
@@ -89,7 +90,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-          Age:
+          <h1 className='heading-2'>Age:</h1>
           <input
             name="age"
             type="text"
@@ -98,7 +99,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-          Ethnicity:
+          <h1 className='heading-2'>Ethnicity:</h1>
           <input
             name="ethnicity"
             type="text"
@@ -107,7 +108,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-          Sexual Orientation:
+          <h1 className='heading-2'>Sexual Orientation:</h1>
           <input
             name="sexualOrientation"
             type="text"
@@ -116,7 +117,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-         	Religious Background:
+         	<h1 className='heading-2'>Religious Background:</h1>
           <input
             name="religiousBackground"
             type="text"
@@ -125,7 +126,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-         	Political Preference:
+         	<h1 className='heading-2'>Political Preference:</h1>
           <input
             name="politicalPreference"
             type="text"
@@ -134,7 +135,7 @@ class AccountLink extends React.Component {
         </label>
         <br />
         <label>
-         	TwitterID:
+         	<h1 className='heading-2'>TwitterID:</h1>
           <input
             name="twitterID"
             type="text"

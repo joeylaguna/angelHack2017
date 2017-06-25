@@ -18,6 +18,8 @@ class Chat extends React.Component {
       nextRound: false,
       ID: '',
       test: 'Isaac'
+
+
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -55,6 +57,8 @@ class Chat extends React.Component {
     var self = this;
     var userID;
 
+    var context = this;
+
 
     var rtm = new RTM(endpoint, appkey);
 
@@ -63,7 +67,12 @@ class Chat extends React.Component {
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
       pdu.body.messages.forEach(function (msg) {
-        console.log(pdu)
+        var temp = msg['test'];
+        temp = temp.split('');
+        temp.unshift(': ');
+        temp.unshift(self.state.ID);
+        temp = temp.join('');
+        console.log(`THIS IS TEMP ${temp}`);
         if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
           self.setState({
             messages: self.state.messages.concat([msg.test])});
@@ -83,12 +92,12 @@ class Chat extends React.Component {
         {
           this.state.messages.map((message, key) => {
             if(key !== 0){
-              return <div> {this.state.ID + ' : ' + message} </div>
+              return <div> {message} </div>
             }
           })
         }
         <div>
-          <ChatSubmit />
+          <ChatSubmit id={this.props.userID}/>
         </div>
         <div>
         {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={5}
