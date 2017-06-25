@@ -10,8 +10,13 @@ class Chat extends React.Component {
     this.state = {
       messages: ["message1"]
     };
-
+    this.doSomething = this.doSomething.bind(this);
   }
+
+  doSomething(value) {
+    this.props.setActiveCount(value);
+  }
+
   render() {
     var endpoint = "wss://uv6r25xn.api.satori.com";
     var appkey = "4EDedbecd2ab3Aedf6eBCBbC4bBA58AE";
@@ -23,6 +28,8 @@ class Chat extends React.Component {
     var rtm = new RTM(endpoint, appkey);
 
     var subscription = rtm.subscribe(channel, RTM.SubscriptionMode.SIMPLE);
+    //this.props.setActiveCount(2);
+
 
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
@@ -41,6 +48,7 @@ class Chat extends React.Component {
     });
     if(rtm.isStopped()) {
       rtm.start();
+      this.doSomething(4);
     }
 
 
@@ -52,6 +60,7 @@ class Chat extends React.Component {
             return <div> {message} </div>
           })
         }
+        <button>test</button>
         <div>
           <ChatSubmit />
         </div>
