@@ -41,7 +41,13 @@ class AccountLink extends React.Component {
    	event.preventDefault();
   	if(this.state.twitterID !== '') {
   		axios.post('/api/tweet/' + this.state.twitterID).then(response => {
+        console.log('hereee');
   			console.log(response)
+        let politcalStuff = response.data;
+        this.setState({
+          politicalPreference: politcalStuff
+        });
+        console.log(politcalStuff);
   		})
   	}
     this.props.updateUserInfo(this.state);
