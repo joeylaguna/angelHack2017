@@ -1,20 +1,30 @@
 import React from 'react';
 
 var RTM = require("satori-rtm-sdk");
+import ReactCountdownClock from 'react-countdown-clock';
 
 import ChatSubmit from './ChatSubmit.jsx';
+
+var EasyQuestion = [' What would constitute a \“perfect\” day for you?', 'What does friendship mean to you?'];
+var HardQuestion = ['What\'s your opinion on gun control?', 'Do you support bulding a wall?'];
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: ["message1"]
+      messages: [''],
+      currentQuestion: EasyQuestion[Math.floor(Math.random() * EasyQuestion.length)],
+      nextRound: false
     };
-    this.doSomething = this.doSomething.bind(this);
+
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
-  doSomething(value) {
-    this.props.setActiveCount(value);
+  nextQuestion() {
+    this.setState({
+      currentQuestion: HardQuestion[Math.floor(Math.random() * HardQuestion.length)],
+      nextRound: true
+    });
   }
 
   render() {
@@ -45,10 +55,10 @@ class Chat extends React.Component {
       rtm.start();
     }
 
-
     return (
       <div>
         <h1>Inside chat</h1>
+        <b>{this.state.currentQuestion}</b>
         {
           this.state.messages.map((message) => {
             return <div> {message} </div>
@@ -57,6 +67,18 @@ class Chat extends React.Component {
         <button>test</button>
         <div>
           <ChatSubmit />
+        </div>
+        <div>
+        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={30}
+                color="#000"
+                alpha={0.9}
+                size={300}
+                onComplete={this.nextQuestion} /> : ''}
+        {this.state.nextRound ? <ReactCountdownClock seconds={30}
+                color="#000"
+                alpha={0.9}
+                size={300}
+                onComplete={this.nextQuestion} /> : ''}
         </div>
       </div>
     );
