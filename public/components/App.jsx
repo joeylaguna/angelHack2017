@@ -14,7 +14,7 @@ class App extends React.Component {
       isChatComplete: false,
       isPostSurveyComplete: false,
       userID: '',
-      postSurveyInfo: {}
+      postSurveyInfo: {},
       polit: ''
     }
     this.updateUserInfo = this.updateUserInfo.bind(this);
