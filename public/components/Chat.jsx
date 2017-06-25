@@ -43,7 +43,7 @@ class Chat extends React.Component {
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
       pdu.body.messages.forEach(function (msg) {
-        console.log(pdu)
+        console.log(rtm)
         if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
           self.setState({
             messages: self.state.messages.concat([msg.test])});
@@ -71,12 +71,12 @@ class Chat extends React.Component {
           <ChatSubmit />
         </div>
         <div>
-        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={5}
+        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={2}
                 color="#000"
                 alpha={0.9}
                 size={300}
                 onComplete={this.nextQuestion} /> : ''}
-        {this.state.nextRound ? <ReactCountdownClock seconds={5}
+        {this.state.nextRound ? <ReactCountdownClock seconds={2}
                 color="#000"
                 alpha={0.9}
                 size={300}

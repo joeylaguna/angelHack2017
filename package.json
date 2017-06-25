@@ -32,6 +32,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-icons": "^2.2.5",
+    "react-star-rating": "^1.4.2",
     "satori-rtm-sdk": "^1.0.2",
     "twitter": "^1.7.1",
     "webpack": "^3.0.0"
