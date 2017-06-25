@@ -1,4 +1,5 @@
 import React from 'react';
+import firebaseApp from './../../db/fb.js';
 
 var RTM = require("satori-rtm-sdk");
 import ReactCountdownClock from 'react-countdown-clock';
@@ -14,10 +15,12 @@ class Chat extends React.Component {
     this.state = {
       messages: [''],
       currentQuestion: EasyQuestion[Math.floor(Math.random() * EasyQuestion.length)],
-      nextRound: false
+      nextRound: false,
+      ID: ''
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.getID = this.getID.bind(this);
   }
 
   nextQuestion() {
@@ -28,6 +31,19 @@ class Chat extends React.Component {
     });
   }
 
+  getID(context){
+    return firebaseApp.database().ref('/users/' + this.props.userID).once('value').then(function(snapshot) {
+      var userid = snapshot.val().username;
+      context.setState({
+        ID: userid
+      });
+    });
+  }
+
+  componentDidMount(){
+    this.getID(this);
+  }
+
   render() {
     var endpoint = "wss://uv6r25xn.api.satori.com";
     var appkey = "4EDedbecd2ab3Aedf6eBCBbC4bBA58AE";
@@ -35,6 +51,8 @@ class Chat extends React.Component {
     var roleSecretKey = "3EF46ECF5a1d1F365fdF37c0dA9e38d3";
     var channel = "sacangelhack";
     var self = this;
+    var userID;
+    
 
     var rtm = new RTM(endpoint, appkey);
 
@@ -63,7 +81,7 @@ class Chat extends React.Component {
         {
           this.state.messages.map((message, key) => {
             if(key !== 0){
-              return <div> {this.props.userInfo.name + ' : ' + message} </div>
+              return <div> {this.state.ID + ' : ' + message} </div>
             }
           })
         }

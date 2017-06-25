@@ -26,6 +26,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "express": "^4.15.3",
+    "firebase": "^4.1.3",
+    "firebase-admin": "^5.0.0",
     "indico.io": "^0.10.5",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",

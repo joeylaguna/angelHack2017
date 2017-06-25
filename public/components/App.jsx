@@ -11,10 +11,12 @@ class App extends React.Component {
       userInfo: {},
       isUserAuth: false,
       isChatComplete: false,
-      isPostSurveyComplete: false
+      isPostSurveyComplete: false,
+      userID: ''
     }
     this.updateUserInfo = this.updateUserInfo.bind(this);
     this.completeChat = this.completeChat.bind(this);
+    this.createUserID = this.createUserID.bind(this);
   }
 
   updateUserInfo(info) {
@@ -30,13 +32,24 @@ class App extends React.Component {
     })
   }
 
+  createUserID() {
+    let id = Math.floor(Math.random(100000) * 100000);
+    this.setState({
+      userID: id
+    });
+  }
+
+  componentDidMount(){
+    this.createUserID();
+  }
+
   render() {
     return (
       <div>
 
-        {this.state.isUserAuth ? '' : <AccountLink updateUserInfo={this.updateUserInfo}/>}
+        {this.state.isUserAuth ? '' : <AccountLink updateUserInfo={this.updateUserInfo} userID={this.state.userID}/>}
         {this.state.isChatComplete ? '' :
-          this.state.isUserAuth ? <Chat chatUpdate = {this.completeChat}  userInfo={this.state.userInfo}/>: ''}
+          this.state.isUserAuth ? <Chat chatUpdate = {this.completeChat}  userID={this.state.userID} userInfo={this.state.userInfo}/>: ''}
         {this.state.isChatComplete ? <PostSurvey /> : ''}
 
       </div>

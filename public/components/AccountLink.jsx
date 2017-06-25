@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+//import admin from 'firebase-admin';
+import firebaseApp from './../../db/fb.js';
 
 class AccountLink extends React.Component {
 	constructor(){
@@ -17,7 +19,6 @@ class AccountLink extends React.Component {
  	 	this.handleInputChange = this.handleInputChange.bind(this);
  	 	this.handleSubmit = this.handleSubmit.bind(this)
   }
-
 
   handleInputChange(event) {
     const target = event.target;
@@ -51,7 +52,18 @@ class AccountLink extends React.Component {
   		})
   	}
     this.props.updateUserInfo(this.state);
+    firebaseApp.database().ref(`/users/${this.props.userID}`).set({
+      username: this.state.name
+    });
+
+
+    // var newData = {
+    //   id: key,
+    //   name: this.state.name
+    // }
+    // myRef.push(newData);
 	}
+
 
   render() {
     return (
