@@ -39,6 +39,7 @@ class ChatSubmit extends React.Component {
       self.setState({
         message: ''
       });
+      rtm.stop();
     });
 
     rtm.start();
