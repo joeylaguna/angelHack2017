@@ -14,6 +14,7 @@ class App extends React.Component {
       isPostSurveyComplete: false
     }
     this.updateUserInfo = this.updateUserInfo.bind(this);
+    this.completeChat = this.completeChat.bind(this);
   }
 
   updateUserInfo(info) {
@@ -23,13 +24,19 @@ class App extends React.Component {
     });
   }
 
+  completeChat(){
+    this.setState({
+      isChatComplete: true
+    })
+  }
+
   render() {
     return (
       <div>
 
         {this.state.isUserAuth ? '' : <AccountLink updateUserInfo={this.updateUserInfo}/>}
         {this.state.isChatComplete ? '' :
-          this.state.isUserAuth ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
+          this.state.isUserAuth ? <Chat chatUpdate = {this.completeChat}  userInfo={this.state.userInfo}/>: ''}
         {this.state.isChatComplete ? <PostSurvey /> : ''}
 
       </div>
