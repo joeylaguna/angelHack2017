@@ -8,16 +8,16 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: ["message1"]
+      messages: []
     };
     this.doSomething = this.doSomething.bind(this);
   }
 
-  doSomething() {
-    this.props.setActiveCount();
+  doSomething(value) {
+    this.props.setActiveCount(value);
   }
-  
-  componentWillMount(){
+
+  render() {
     var endpoint = "wss://uv6r25xn.api.satori.com";
     var appkey = "4EDedbecd2ab3Aedf6eBCBbC4bBA58AE";
     var role = "default";
@@ -28,8 +28,6 @@ class Chat extends React.Component {
     var rtm = new RTM(endpoint, appkey);
 
     var subscription = rtm.subscribe(channel, RTM.SubscriptionMode.SIMPLE);
-    //this.props.setActiveCount(2);
-
 
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
@@ -37,22 +35,17 @@ class Chat extends React.Component {
         console.log('Got message:', msg);
         if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
           self.setState({
-            messages: self.state.messages.concat([msg.test])}
-            );
-            // close client after receving one message
+            messages: self.state.messages.concat([msg.test])});
           rtm.stop();
-        }
-
+      }
       });
+      // close client after receving one message
     });
-
     if(rtm.isStopped()) {
       rtm.start();
-      this.doSomething();
     }
-  }
 
-  render() {
+
     return (
       <div>
         <h1>Inside chat</h1>
@@ -61,7 +54,6 @@ class Chat extends React.Component {
             return <div> {message} </div>
           })
         }
-        <button>test</button>
         <div>
           <ChatSubmit />
         </div>

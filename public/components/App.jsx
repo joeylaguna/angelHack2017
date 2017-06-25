@@ -2,37 +2,36 @@ import React from 'react';
 import AccountLink from './AccountLink.jsx';
 import AccountSummary from './AccountSummary.jsx';
 import Chat from './Chat.jsx';
+import PostSurvey from './PostSurvey.js'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      matched: false,
-      activeCount: 0
-
+      userInfo: {},
+      isUserAuth: false,
+      isChatComplete: false,
+      isPostSurveyComplete: false
     }
-
-    this.setActiveCount = this.setActiveCount.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
-  setActiveCount() {
-    let currentCount = this.state.activeCount;
-    currentCount +=1;
+  updateUserInfo(info) {
     this.setState({
-      activeCount: currentCount
+      userInfo: info,
+      isUserAuth: true
     });
   }
-
-
 
   render() {
     return (
       <div>
-        <AccountLink />
-        {this.state.activeCount}
-        {this.state.matched ? <AccountSummary /> : ''}
-        {this.state.matched ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
-        {this.state.matched ? <PostSurvey /> }
+
+        {this.state.isUserAuth ? '' : <AccountLink updateUserInfo={this.updateUserInfo}/>}
+        {this.state.isChatComplete ? '' :
+          this.state.isUserAuth ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
+        {this.state.isChatComplete ? <PostSurvey /> : ''}
+
       </div>
     )
   }

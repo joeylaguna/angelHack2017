@@ -23,7 +23,6 @@ class AccountLink extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    console.log('name', name)
 
     this.setState({
       [name]: value,
@@ -35,17 +34,23 @@ class AccountLink extends React.Component {
       [name]: value,
       [name]: value
     });
-    console.log(this.state)
   }
 
   handleSubmit(event) {
   	console.log('entered')
-  	event.preventDefault();
+   	event.preventDefault();
   	if(this.state.twitterID !== '') {
   		axios.post('/api/tweet/' + this.state.twitterID).then(response => {
+        console.log('hereee');
   			console.log(response)
+        let politcalStuff = response.data;
+        this.setState({
+          politicalPreference: politcalStuff
+        });
+        console.log(politcalStuff);
   		})
   	}
+    this.props.updateUserInfo(this.state);
 	}
 
   render() {
