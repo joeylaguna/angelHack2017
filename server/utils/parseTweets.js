@@ -1,7 +1,6 @@
 
 module.exports = {
 	parseTweets: function(arr) {
-		console.log('arr', arr)
 		let tweets = []
 		for(var i = 0; i < arr.length; i ++)  {
 			var obj = arr[i];

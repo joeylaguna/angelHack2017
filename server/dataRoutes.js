@@ -3,6 +3,6 @@ var controller = require('./controllers/dataController.js');
 var router = require('express').Router();
 
 
-router.get('/tweet', controller.tweet.get)
+router.post('/tweet/:username', controller.tweet.post)
 
 module.exports = router;
