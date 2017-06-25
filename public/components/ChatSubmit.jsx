@@ -7,6 +7,7 @@ class ChatSubmit extends React.Component {
     this.state = {
       message: ''
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,9 +37,11 @@ class ChatSubmit extends React.Component {
       let newMessage = {
         test: self.state.message
       }
-      console.log(newMessage)
       rtm.publish(channel, newMessage, function (pdu) {
         console.log("Publish ack:", pdu);
+      });
+      self.setState({
+        message: ''
       });
     });
 
@@ -48,16 +51,13 @@ class ChatSubmit extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Inside chat teapot</h1>
-        <form>
-          <label>
-            Message:
-            <input type="text" value={this.state.message} onChange={this.handleChange}/>
-          </label>
-          <button type="button" onClick={this.handleSubmit}> Submit</button>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Message:
+          <input type="text" value={this.state.message} onChange={this.handleChange}/>
+        </label>
+        <button type="button" onClick={this.handleSubmit}> Submit</button>
+      </form>
     );
   }
 }
