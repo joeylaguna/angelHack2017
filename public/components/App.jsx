@@ -9,6 +9,7 @@ class App extends React.Component {
     this.state = {
       matched: false,
       activeCount: 0
+
     }
 
     this.setActiveCount = this.setActiveCount.bind(this);
@@ -21,6 +22,8 @@ class App extends React.Component {
       activeCount: currentCount
     });
   }
+
+
 
   render() {
     return (
