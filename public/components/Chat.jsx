@@ -71,7 +71,7 @@ class Chat extends React.Component {
         console.log(`THIS IS TEMP ${temp}`);
         if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
           self.setState({
-            messages: self.state.messages.concat(self.state.ID +': ' + [msg.test])}); 
+            messages: self.state.messages.concat([msg.test])});
           rtm.stop();
       }
       });
