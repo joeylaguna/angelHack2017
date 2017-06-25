@@ -28,11 +28,16 @@ class Chat extends React.Component {
     subscription.on('rtm/subscription/data', function (pdu) {
       pdu.body.messages.forEach(function (msg) {
         console.log('Got message:', msg);
-        if(self.state.messages[self.state.messages.length - 1] !== msg.test)
-        self.setState({
-          messages: self.state.messages.concat([msg.test])});
+        if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
+          self.setState({
+            messages: self.state.messages.concat([msg.test])}
+            );
+            // close client after receving one message
+          rtm.stop();
+        }
+
       });
-      // close client after receving one message
+
     });
     if(rtm.isStopped()) {
       rtm.start();
