@@ -14,9 +14,11 @@ class App extends React.Component {
     this.setActiveCount = this.setActiveCount.bind(this);
   }
 
-  setActiveCount(newCount) {
+  setActiveCount() {
+    let currentCount = this.state.activeCount;
+    currentCount +=1;
     this.setState({
-      activeCount: newCount
+      activeCount: currentCount
     });
   }
 

@@ -13,11 +13,11 @@ class Chat extends React.Component {
     this.doSomething = this.doSomething.bind(this);
   }
 
-  doSomething(value) {
-    this.props.setActiveCount(value);
+  doSomething() {
+    this.props.setActiveCount();
   }
-
-  render() {
+  
+  componentWillMount(){
     var endpoint = "wss://uv6r25xn.api.satori.com";
     var appkey = "4EDedbecd2ab3Aedf6eBCBbC4bBA58AE";
     var role = "default";
@@ -44,14 +44,15 @@ class Chat extends React.Component {
         }
 
       });
-
     });
+
     if(rtm.isStopped()) {
       rtm.start();
-      this.doSomething(4);
+      this.doSomething();
     }
+  }
 
-
+  render() {
     return (
       <div>
         <h1>Inside chat</h1>
