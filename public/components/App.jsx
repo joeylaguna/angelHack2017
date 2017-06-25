@@ -12,11 +12,13 @@ class App extends React.Component {
       isUserAuth: false,
       isChatComplete: false,
       isPostSurveyComplete: false,
-      userID: ''
+      userID: '',
+      polit: ''
     }
     this.updateUserInfo = this.updateUserInfo.bind(this);
     this.completeChat = this.completeChat.bind(this);
     this.createUserID = this.createUserID.bind(this);
+    this.updatePolit = this.updatePolit.bind(this);
   }
 
   updateUserInfo(info) {
@@ -39,6 +41,12 @@ class App extends React.Component {
     });
   }
 
+  updatePolit(value) {
+    this.setState({
+      polit: value
+    })
+  }
+
   componentDidMount(){
     this.createUserID();
   }
@@ -47,7 +55,7 @@ class App extends React.Component {
     return (
       <div>
 
-        {this.state.isUserAuth ? '' : <AccountLink updateUserInfo={this.updateUserInfo} userID={this.state.userID}/>}
+        {this.state.isUserAuth ? '' : <AccountLink updateUserInfo={this.updateUserInfo} updatePolit={this.updatePolit}  userID={this.state.userID}/>}
         {this.state.isChatComplete ? '' :
           this.state.isUserAuth ? <Chat chatUpdate = {this.completeChat}  userID={this.state.userID} userInfo={this.state.userInfo}/>: ''}
         {this.state.isChatComplete ? <PostSurvey /> : ''}
