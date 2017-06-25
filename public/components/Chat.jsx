@@ -23,7 +23,8 @@ class Chat extends React.Component {
   nextQuestion() {
     this.setState({
       currentQuestion: HardQuestion[Math.floor(Math.random() * HardQuestion.length)],
-      nextRound: true
+      nextRound: true,
+      messages: ['']
     });
   }
 
@@ -42,7 +43,7 @@ class Chat extends React.Component {
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
       pdu.body.messages.forEach(function (msg) {
-        console.log('Got message:', msg);
+        console.log(pdu)
         if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
           self.setState({
             messages: self.state.messages.concat([msg.test])});
@@ -60,25 +61,27 @@ class Chat extends React.Component {
         <h1>Inside chat</h1>
         <b>{this.state.currentQuestion}</b>
         {
-          this.state.messages.map((message) => {
-            return <div> {message} </div>
+          this.state.messages.map((message, key) => {
+            if(key !== 0){
+              return <div> {this.props.userInfo.name + ' : ' + message} </div>
+            }
           })
         }
-        <button>test</button>
         <div>
           <ChatSubmit />
         </div>
         <div>
-        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={30}
+        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={5}
                 color="#000"
                 alpha={0.9}
                 size={300}
                 onComplete={this.nextQuestion} /> : ''}
-        {this.state.nextRound ? <ReactCountdownClock seconds={30}
+        {this.state.nextRound ? <ReactCountdownClock seconds={5}
                 color="#000"
                 alpha={0.9}
                 size={300}
-                onComplete={this.nextQuestion} /> : ''}
+                onComplete={() => this.props.chatUpdate()} /> : ''}
+
         </div>
       </div>
     );
