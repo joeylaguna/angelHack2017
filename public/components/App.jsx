@@ -32,6 +32,7 @@ class App extends React.Component {
         {this.state.activeCount}
         {this.state.matched ? <AccountSummary /> : ''}
         {this.state.matched ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
+        {this.state.matched ? <PostSurvey /> }
       </div>
     )
   }
