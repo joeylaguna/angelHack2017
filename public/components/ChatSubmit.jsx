@@ -1,15 +1,19 @@
 import React from 'react';
+import firebaseApp from './../../db/fb.js';
+
 var RTM = require("satori-rtm-sdk");
 
 class ChatSubmit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      ID: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getID = this.getID.bind(this);
   }
 
   handleChange(event) {
@@ -33,9 +37,13 @@ class ChatSubmit extends React.Component {
       let newMessage = {
         test: self.state.message,
       }
+      let temp = newMessage['test'];
+      temp = temp.split('');
+      temp.unshift('')
       rtm.publish(channel, newMessage, function (pdu) {
         console.log("Publish ack:", pdu);
       });
+      
       self.setState({
         message: ''
       });
@@ -44,6 +52,19 @@ class ChatSubmit extends React.Component {
 
     rtm.start();
     event.preventDefault();
+  }
+
+  getID(context){
+    return firebaseApp.database().ref('/users/' + this.props.userID).once('value').then(function(snapshot) {
+      var userid = snapshot.val().username;
+      context.setState({
+        ID: userid
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.getID(this);
   }
 
   render() {
