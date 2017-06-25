@@ -17,18 +17,14 @@ class ChatSubmit extends React.Component {
   }
 
   handleSubmit(event) {
-    var endpoint = "wss://open-data.api.satori.com";
-    var appkey = "B1c1F2BfAC806D6daFC3D4Fa4A4B00ED";
-    var role = "sacangelhack";
+    var endpoint = "wss://uv6r25xn.api.satori.com";
+    var appkey = "4EDedbecd2ab3Aedf6eBCBbC4bBA58AE";
+    var role = "default";
     var roleSecretKey = "3EF46ECF5a1d1F365fdF37c0dA9e38d3";
     var channel = "sacangelhack";
     var self = this;
 
-    var roleSecretProvider = RTM.roleSecretAuthProvider(role, roleSecretKey);
-
-    var rtm = new RTM(endpoint, appkey, {
-      authProvider: roleSecretProvider,
-    });
+    var rtm = new RTM(endpoint, appkey);
 
     var subscription = rtm.subscribe(channel, RTM.SubscriptionMode.SIMPLE);
 
