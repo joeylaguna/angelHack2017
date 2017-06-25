@@ -1,6 +1,9 @@
 const express = require('express');
+var dataRouter = require('./dataRoutes.js')
+
 
 const app = express();
+app.use('/api', dataRouter);
 
 app.use(express.static(__dirname + '/../public'));
 
