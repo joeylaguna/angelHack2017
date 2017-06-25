@@ -7,15 +7,26 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      matched: false
+      matched: false,
+      activeCount: 0
     }
+
+    this.setActiveCount = this.setActiveCount.bind(this);
   }
+
+  setActiveCount(newCount) {
+    this.setState({
+      activeCount: newCount
+    });
+  }
+
   render() {
     return (
       <div>
         <AccountLink />
+        {this.state.activeCount}
         {this.state.matched ? <AccountSummary /> : ''}
-        {this.state.matched ? <Chat /> : ''}
+        {this.state.matched ? <Chat activeCount={this.state.activeCount} setActiveCount={this.setActiveCount}/> : ''}
       </div>
     )
   }

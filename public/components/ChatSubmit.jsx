@@ -31,7 +31,7 @@ class ChatSubmit extends React.Component {
     /* publish a message after being subscribed to sync on subscription */
     subscription.on('enter-subscribed', function () {
       let newMessage = {
-        test: self.state.message
+        test: self.state.message,
       }
       rtm.publish(channel, newMessage, function (pdu) {
         console.log("Publish ack:", pdu);
