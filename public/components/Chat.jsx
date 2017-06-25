@@ -16,7 +16,8 @@ class Chat extends React.Component {
       messages: [''],
       currentQuestion: EasyQuestion[Math.floor(Math.random() * EasyQuestion.length)],
       nextRound: false,
-      ID: ''
+      ID: '',
+      test: 'Isaac'
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -34,6 +35,7 @@ class Chat extends React.Component {
   getID(context){
     return firebaseApp.database().ref('/users/' + this.props.userID).once('value').then(function(snapshot) {
       var userid = snapshot.val().username;
+      console.log('userId', userid)
       context.setState({
         ID: userid
       });
@@ -52,7 +54,7 @@ class Chat extends React.Component {
     var channel = "sacangelhack";
     var self = this;
     var userID;
-    
+
 
     var rtm = new RTM(endpoint, appkey);
 
@@ -61,7 +63,7 @@ class Chat extends React.Component {
     /* set callback for PDU with specific action */
     subscription.on('rtm/subscription/data', function (pdu) {
       pdu.body.messages.forEach(function (msg) {
-        console.log(rtm)
+        console.log(pdu)
         if(self.state.messages[self.state.messages.length - 1] !== msg.test) {
           self.setState({
             messages: self.state.messages.concat([msg.test])});
@@ -89,12 +91,12 @@ class Chat extends React.Component {
           <ChatSubmit />
         </div>
         <div>
-        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={2}
+        {this.state.messages.length > 1 && !this.state.nextRound ? <ReactCountdownClock seconds={5}
                 color="#000"
                 alpha={0.9}
                 size={300}
                 onComplete={this.nextQuestion} /> : ''}
-        {this.state.nextRound ? <ReactCountdownClock seconds={2}
+        {this.state.nextRound ? <ReactCountdownClock seconds={5}
                 color="#000"
                 alpha={0.9}
                 size={300}
