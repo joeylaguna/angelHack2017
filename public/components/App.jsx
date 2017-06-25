@@ -4,12 +4,18 @@ import AccountSummary from './AccountSummary.jsx';
 import Chat from './Chat.jsx';
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      matched: false
+    }
+  }
   render() {
     return (
       <div>
         <AccountLink />
-        <AccountSummary />
-        <Chat />
+        {this.state.matched ? <AccountSummary /> : ''}
+        {this.state.matched ? <Chat /> : ''}
       </div>
     )
   }
